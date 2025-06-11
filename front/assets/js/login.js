@@ -1,4 +1,4 @@
-const uri = 'https://petshop-api-i52w.onrender.com'; 
+const uri = 'https://petshop-api-i52w.onrender.com';
 
 function login() {
     const form = document.querySelector('#formLogin');
@@ -44,47 +44,46 @@ document.querySelectorAll('.user-box input').forEach(input => {
     });
 });
 
-
 const signUpButton = document.getElementById("signUp");
 const signInButton = document.getElementById("signIn");
 const container = document.getElementById("container");
 
 signUpButton.addEventListener("click", () => {
-  container.classList.add("right-panel-active");
+    container.classList.add("right-panel-active");
 });
 
 signInButton.addEventListener("click", () => {
-  container.classList.remove("right-panel-active");
+    container.classList.remove("right-panel-active");
 });
 
 // Cadastro
 document.getElementById("formCadastro").addEventListener("submit", async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  const nome = e.target.nome.value;
-  const email = e.target.email.value;
-  const telefone = e.target.telefone.value; // Adicionado telefone
-  const senha = e.target.senha.value;
+    const nome = e.target.nome.value;
+    const email = e.target.email.value;
+    const telefone = e.target.telefone.value;
+    const senha = e.target.senha.value;
 
-  try {
-    const response = await fetch("https://petshop-api-i52w.onrender.com", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ nome, email, telefone, senha }), // Incluído telefone
-    });
+    try {
+        const response = await fetch(`${uri}/usuarios`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ nome, email, telefone, senha }),
+        });
 
-    const data = await response.json();
-    if (response.ok) {
-      alert("Usuário cadastrado com sucesso!");
-      const container = document.getElementById("container");
-      container.classList.remove("right-panel-active");
-    } else {
-      alert(data.message || "Erro ao cadastrar.");
+        const data = await response.json();
+
+        if (response.ok) {
+            alert("Usuário cadastrado com sucesso!");
+            container.classList.remove("right-panel-active");
+        } else {
+            alert(data.message || "Erro ao cadastrar.");
+        }
+    } catch (err) {
+        console.error("Erro ao cadastrar:", err);
+        alert("Erro ao cadastrar.");
     }
-  } catch (err) {
-    console.error("Erro ao cadastrar:", err);
-    alert("Erro ao cadastrar.");
-  }
 });
 
 document.addEventListener('DOMContentLoaded', login);
