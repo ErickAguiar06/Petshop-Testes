@@ -11,6 +11,7 @@ yarn-error.log*
 # Banco de dados local
 *.sqlite
 *.db
+.env
 
 # Diretórios do Prisma
 prisma/migrations/
